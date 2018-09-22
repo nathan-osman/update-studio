@@ -1,9 +1,9 @@
 set(SRC
-    downloaddialog.h
-    downloaddialog.cpp
-    downloaddialog.rc
     main.cpp
     resource.h
+    updatedialog.h
+    updatedialog.cpp
+    updatedialog.rc
     updater.exe.manifest
 )
 

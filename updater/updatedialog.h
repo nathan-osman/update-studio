@@ -22,24 +22,24 @@
  * IN THE SOFTWARE.
  */
 
-#ifndef DOWNLOADDIALOG_H
-#define DOWNLOADDIALOG_H
+#ifndef UPDATEDIALOG_H
+#define UPDATEDIALOG_H
 
 #include <Windows.h>
 
 /**
- * @brief UI for showing download progress
+ * @brief UI for showing update progress
  */
-class DownloadDialog
+class UpdateDialog
 {
 public:
 
-    DownloadDialog(LPCWSTR url, LPCWSTR filename);
-    ~DownloadDialog();
+    UpdateDialog(LPCWSTR url, LPCWSTR filename);
+    ~UpdateDialog();
 
     /**
      * @brief Display the dialog and wait for completion
-     * @return true if the download succeeded
+     * @return true if the update succeeded
      */
     bool exec();
 
@@ -65,4 +65,4 @@ private:
     PWSTR mFilename;
 };
 
-#endif // DOWNLOADDIALOG_H
+#endif // UPDATEDIALOG_H

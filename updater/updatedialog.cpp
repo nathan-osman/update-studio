@@ -26,10 +26,10 @@
 #include <CommCtrl.h>
 #include <Shlwapi.h>
 
-#include "downloaddialog.h"
+#include "updatedialog.h"
 #include "resource.h"
 
-DownloadDialog::DownloadDialog(LPCWSTR url, LPCWSTR filename)
+UpdateDialog::UpdateDialog(LPCWSTR url, LPCWSTR filename)
     : mHwnd(nullptr),
       mHwndProgress(nullptr),
       mUrl(StrDupW(url)),
@@ -37,13 +37,13 @@ DownloadDialog::DownloadDialog(LPCWSTR url, LPCWSTR filename)
 {
 }
 
-DownloadDialog::~DownloadDialog()
+UpdateDialog::~UpdateDialog()
 {
     LocalFree(mUrl);
     LocalFree(mFilename);
 }
 
-bool DownloadDialog::exec()
+bool UpdateDialog::exec()
 {
     DialogBoxParamW(nullptr,
                     MAKEINTRESOURCEW(ID_DOWNLOADDIALOG),
@@ -54,33 +54,33 @@ bool DownloadDialog::exec()
     return false;
 }
 
-INT_PTR DownloadDialog::sDialogProc(HWND hwndDialog,
+INT_PTR UpdateDialog::sDialogProc(HWND hwndDialog,
                                     UINT message,
                                     WPARAM wParam,
                                     LPARAM lParam)
 {
     // Check to see if a pointer to the instance can be retrieved from the
     // user data in the HWND
-    DownloadDialog *downloadDialog = reinterpret_cast<DownloadDialog*>(
+    UpdateDialog *updateDialog = reinterpret_cast<UpdateDialog*>(
                 GetWindowLongW(hwndDialog, GWLP_USERDATA));
 
     // If not, and the message is WM_INITDIALOG, the pointer is in lParam;
     // store a copy in the HWND for later
-    if (!downloadDialog && message == WM_INITDIALOG) {
-        downloadDialog = reinterpret_cast<DownloadDialog*>(lParam);
-        downloadDialog->mHwnd = hwndDialog;
+    if (!updateDialog && message == WM_INITDIALOG) {
+        updateDialog = reinterpret_cast<UpdateDialog*>(lParam);
+        updateDialog->mHwnd = hwndDialog;
         SetWindowLongW(hwndDialog, GWLP_USERDATA, static_cast<LONG>(lParam));
     }
 
     // Invoke the instance's proc if available
-    if (downloadDialog) {
-        return downloadDialog->dialogProc(hwndDialog, message, wParam, lParam);
+    if (updateDialog) {
+        return updateDialog->dialogProc(hwndDialog, message, wParam, lParam);
     }
 
     return FALSE;
 }
 
-INT_PTR DownloadDialog::dialogProc(HWND hwndDialog,
+INT_PTR UpdateDialog::dialogProc(HWND hwndDialog,
                                    UINT message,
                                    WPARAM wParam,
                                    LPARAM lParam)
@@ -106,7 +106,7 @@ INT_PTR DownloadDialog::dialogProc(HWND hwndDialog,
     return TRUE;
 }
 
-void DownloadDialog::center()
+void UpdateDialog::center()
 {
     // Determine the dimensions of the primary display
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
@@ -126,7 +126,7 @@ void DownloadDialog::center()
                  SWP_NOSIZE);
 }
 
-void DownloadDialog::createProgressBar()
+void UpdateDialog::createProgressBar()
 {
     // Map dialog coordinates to screen coordinates
     RECT rect = {10, 25, 290, 40};

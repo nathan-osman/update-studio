@@ -25,7 +25,7 @@
 #include <Windows.h>
 #include <CommCtrl.h>
 
-#include "downloaddialog.h"
+#include "updatedialog.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance,
                     HINSTANCE hPrevInstance,
@@ -39,7 +39,7 @@ int WINAPI wWinMain(HINSTANCE hInstance,
     InitCommonControlsEx(&icex);
 
     // Display the dialog
-    DownloadDialog dialog(L"", L"");
+    UpdateDialog dialog(L"", L"");
     dialog.exec();
 
     // TODO
