@@ -1,0 +1,13 @@
+#include <Windows.h>
+
+#include "resource.h"
+
+ID_DOWNLOADDIALOG DIALOGEX 0, 0, 300, 70
+STYLE DS_SETFONT | DS_MODALFRAME
+CAPTION "Downloading Update"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+{
+    LTEXT "Please wait while the update is downloaded...", 0, 10, 10, 280, 12
+    LTEXT "Initializing...", ID_STATUS, 10, 48, 280, 12
+    DEFPUSHBUTTON "&Cancel", ID_CANCEL, 240, 46, 50, 14
+}

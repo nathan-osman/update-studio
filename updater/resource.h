@@ -22,27 +22,12 @@
  * IN THE SOFTWARE.
  */
 
-#include <Windows.h>
-#include <CommCtrl.h>
+#ifndef RESOURCE_H
+#define RESOURCE_H
 
-#include "downloaddialog.h"
+#define ID_DOWNLOADDIALOG 101
 
-int WINAPI wWinMain(HINSTANCE hInstance,
-                    HINSTANCE hPrevInstance,
-                    PWSTR pCmdLine,
-                    int nCmdShow)
-{
-    // Initialize common controls
-    INITCOMMONCONTROLSEX icex;
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC = ICC_PROGRESS_CLASS;
-    InitCommonControlsEx(&icex);
+#define ID_STATUS 102
+#define ID_CANCEL 103
 
-    // Display the dialog
-    DownloadDialog dialog(L"", L"");
-    dialog.exec();
-
-    // TODO
-
-    return 0;
-}
+#endif // RESOURCE_H

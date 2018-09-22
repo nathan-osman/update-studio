@@ -22,27 +22,47 @@
  * IN THE SOFTWARE.
  */
 
+#ifndef DOWNLOADDIALOG_H
+#define DOWNLOADDIALOG_H
+
 #include <Windows.h>
-#include <CommCtrl.h>
 
-#include "downloaddialog.h"
-
-int WINAPI wWinMain(HINSTANCE hInstance,
-                    HINSTANCE hPrevInstance,
-                    PWSTR pCmdLine,
-                    int nCmdShow)
+/**
+ * @brief UI for showing download progress
+ */
+class DownloadDialog
 {
-    // Initialize common controls
-    INITCOMMONCONTROLSEX icex;
-    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-    icex.dwICC = ICC_PROGRESS_CLASS;
-    InitCommonControlsEx(&icex);
+public:
 
-    // Display the dialog
-    DownloadDialog dialog(L"", L"");
-    dialog.exec();
+    DownloadDialog(LPCWSTR url, LPCWSTR filename);
+    ~DownloadDialog();
 
-    // TODO
+    /**
+     * @brief Display the dialog and wait for completion
+     * @return true if the download succeeded
+     */
+    bool exec();
 
-    return 0;
-}
+private:
+
+    static INT_PTR CALLBACK sDialogProc(HWND hwndDialog,
+                                        UINT message,
+                                        WPARAM wParam,
+                                        LPARAM lParam);
+
+    INT_PTR dialogProc(HWND hwndDialog,
+                       UINT message,
+                       WPARAM wParam,
+                       LPARAM lParam);
+
+    void center();
+    void createProgressBar();
+
+    HWND mHwnd;
+    HWND mHwndProgress;
+
+    PWSTR mUrl;
+    PWSTR mFilename;
+};
+
+#endif // DOWNLOADDIALOG_H
